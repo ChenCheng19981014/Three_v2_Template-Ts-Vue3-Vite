@@ -77,7 +77,7 @@ function Change(runScene) {
     this.dispose = () => runScene.dispose();
 }
 
-// 工具 公共方法
+// 工具方法 ( 可封的公共方法 )
 class Tool {
     // 设置位置 返回2D点位
     setPosition(ps) {
@@ -158,21 +158,10 @@ class Events {
 
     constructor() {
         t.runScene.assetsEx.controls.addEventListener("start", this.controlStart);
-        t.runScene.cb.events.pointer.down.add("pointerDown", this.mouseDown);
         t.runScene.cb.events.pointer.up.add("pointerUp", this.mouseUp);
-        t.runScene.cb.model.setSelect.add(
-            "trigger-click",
-            this.triggerClick.bind(this)
-        );
-        t.runScene.cb.events.pointer.down.add("trigger", (e) => {
-            t.runScene.modelEx.selectNull();
-        });
-        document.addEventListener("click", (e) => {
-            this.camera2DPosition = {
-                x: e.pageX,
-                y: e.pageY,
-            };
-        });
+        t.runScene.cb.model.setSelect.add("trigger-click", this.triggerClick.bind(this));
+        t.runScene.cb.events.pointer.down.add("trigger", (e) => t.runScene.modelEx.selectNull());
+        document.addEventListener("click", (e) => { });
     }
 
     triggerClick = (model) => {
@@ -229,7 +218,6 @@ class Events {
     }
 
     dispose() {
-        dom.removeEventListener("pointerdown", this.mouseDown);
         dom.removeEventListener("pointerup", this.mouseUp);
         controls.removeEventListener("start", this.controlStart);
     }
