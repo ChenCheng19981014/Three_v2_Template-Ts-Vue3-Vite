@@ -11,8 +11,9 @@ import Change from "./Change";
 import { RunScene } from "run-scene-v2";
 import bus from "./Bus";
 import { onMounted, ref } from "vue";
-
-let sceneChange = ref(null);
+// change的实例
+let sceneChange: any = null;
+// runscene实例
 let runScene: any = null;
 
 // 加载场景
@@ -73,7 +74,7 @@ const loadScene = async () => {
                */
     },
   }).on("complete", () => {});
-  sceneChange.value = new Change(runScene);
+  sceneChange = new Change(runScene);
 };
 
 onMounted(() => {
