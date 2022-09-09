@@ -35,6 +35,9 @@ function Change(runScene) {
     // 挂载 runScene
     t.runScene = runScene;
 
+    // 基本事件类
+    this.events = null;
+
     // 工具类
     this.tool = null;
 
