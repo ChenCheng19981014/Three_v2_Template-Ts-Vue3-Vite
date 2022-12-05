@@ -1,6 +1,6 @@
 <template>
-  <div class="three-scene" ref="three-scene" @selectstart="() => false">
-    <div @pointerdown="(e) => e.stopPropagation()" class="btn"></div>
+  <div class="three-scene" ref="threeScene" @selectstart="() => false">
+    <div @pointerdown="(e:any) => e.stopPropagation()" class="btn"></div>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import Change from "./Change";
 //@ts-ignore
 import { RunScene } from "run-scene-v2";
 import bus from "./Bus";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, onBeforeMount } from "vue";
 // change的实例
 let sceneChange: any = null;
 // runscene实例
@@ -18,62 +18,29 @@ let runScene: any = null;
 
 // 加载场景
 const loadScene = async () => {
+  const threeScene = ref(null);
+  if (!threeScene) return;
+  let dom = document.querySelector(".three-scene");
   runScene = new RunScene({
-    path: "https://test2-1303915342.cos.ap-shanghai.myqcloud.com/gangtiechang/scene.glb",
-    rootDom: document.querySelector(".three-scene"),
-    options: {
-      // render2: true,
-      render3: true,
-      texture: {
-        // load: false,
-        lazyLoad: {
-          // open: true,
-          // IntervalTime: 16.6,
-        },
-      },
-
-      msg: {
-        // show: true,
-        // level: "detail",
-      },
-      /**
-            msg?: {
-            是否显示打印，默认显示
-              show: boolean = true
-             显示打印的等级 默认显示基础打印
-              level: "base" | 'detail' =  base
-              }
-             是否渲染
-              run?: boolean = true
-             decode 的路径
-              decodePath?: string = ./draco/
-             是否显示fps 默认关
-              showFps?: boolean = false
-             是否延迟加载 默认不延迟
-              loadInterval?: number = 0
-             模式 默认运行模式
-              mode?: 'editor' | 'debug' | 'running' = 'running
-             texture?:{
-             是否加载贴图
-               load?:boolean = true
-               lazyload?:{
-             是否懒加载贴图 默认是
-                 open?:boolean = false,
-             懒加载的时间区间 默认为16.0ms
-                 IntervalTime?:number = 16.6
-              },
-             贴图质量 可大幅度降低显存占用 0-1 之间
-              quality?:number = 1
-             }
-             是否加载实例后的模型 节省性能 默认关闭
-              instanceClone?: boolean =false
-             2drenderer
-              render2?: boolean = false
-             3drenderer
-              render3?: boolean, = false
-               */
+    msg: {
+      show: true,
     },
-  }).on("complete", () => {});
+    showFps: true,
+    coverSameId: true,
+    instanceClone: false,
+    render3: true,
+    render2: true,
+    renderConfig: {
+      // 是否允许设置模型位置后自动渲染最新效果
+      matrixAutoUpdate: true,
+      scriptFrame: 60,
+    },
+  })
+    .load({
+      dom,
+      path: "http://192.168.3.8:8080/file?path=project/linkpoint/&key=202208251758369891641001202265",
+    })
+    .on("complete", () => {});
   sceneChange = new Change(runScene);
 };
 

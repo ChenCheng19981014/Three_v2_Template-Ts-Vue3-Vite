@@ -51,9 +51,9 @@ function Change(runScene) {
         // 基本配置
         (() => {
             // 最小距离
-            controls.minDistance = 20;
+            // controls.minDistance = 20;
             // 最大距离
-            controls.maxDistance = 400;
+            // controls.maxDistance = 400;
 
             controls.maxPolarAngle = Math.PI / 2 - 0.1;
 
@@ -62,17 +62,17 @@ function Change(runScene) {
             // 脚本播放
             t.runScene.script.playAll();
             // 初始视角
-            t.events.closeAnimaAtStart.enterAnima = t.tool.cameraFoucs(
-                {
-                    cx: 18.962385052840354,
-                    cy: 39.39184823317323,
-                    cz: 64.05234457200034,
-                    tx: 17.083599506493073,
-                    ty: 3.686659128440832,
-                    tz: 24.166062158371606,
-                },
-                1.5
-            )
+            // t.events.closeAnimaAtStart.enterAnima = t.tool.cameraFoucs(
+            //     {
+            //         cx: 18.962385052840354,
+            //         cy: 39.39184823317323,
+            //         cz: 64.05234457200034,
+            //         tx: 17.083599506493073,
+            //         ty: 3.686659128440832,
+            //         tz: 24.166062158371606,
+            //     },
+            //     1.5
+            // )
         })()
     });
 
@@ -178,7 +178,7 @@ class Events {
 
     controlStart = () => {
         // 关闭其他动画
-        this.stopMove();
+        // this.stopMove();
         this.closeAnmia();
     };
 
